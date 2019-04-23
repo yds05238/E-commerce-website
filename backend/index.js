@@ -16,48 +16,84 @@ app.use(bodyParser.json());
 
 app.get('/', (_, resp) => resp.send('Hello World!'));
 
-const postsCollection = db.collection('posts');
+const usersCollection = db.collection('users');
+const productsCollection = db.collection('products');
 
-// create a post
-app.put('/post', async (req, resp) => {
-  const post = req.body;
-  const addedDoc = await postsCollection.doc("hi").set(post);
-  resp.status(200).send(addedDoc.id);
+//Create accounts
+app.put('/user', async (req, resp) => {
+  const user = req.body;
+  const allUsersDoc = await usersCollection.get();
+  const users = [allUsersDoc.docs.map(doc => ({ id: doc.id, ...doc.data() }))];
+  if (users.some(c => c.email === card.email)) {
+    resp.status(200).send('NOT_OK');
+  } else {
+    const addedDoc = await usersCollection.add(user);
+    resp.status(200).send(addedDoc.id);
+  }
 });
 
-// read all posts
-app.get('/post', async (_, resp) => {
-  const allPostsDoc = await postsCollection.get();
-  resp.status(200).json(allPostsDoc.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+// Read all users
+app.get('/user', async (_, resp) => {
+  const allUsersDoc = await usersCollection.get();
+  resp.status(200).json(allUsersDoc.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 });
 
-// 2019-04-17
-app.get('/post/today', async (_, resp) => {
-  const today = new Date();
-  const todayString = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-  const todayPostsDoc = await postsCollection.where('date', '==', todayString).get();
-  resp.status(200).json(todayPostsDoc.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-});
-
-// sorted posts
-app.get('/post/sorted', async (_, resp) => {
-  const sortedPosts = await postsCollection.orderBy('date', 'desc').get();
-  resp.status(200).json(sortedPosts.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-});
-
-// update a post
-app.post('/post/:id', async (req, res) => {
+// Update a user
+app.post('/user/:id', async (req, res) => {
   const id = req.params['id'];
-  const newPost = req.body;
-  await postsCollection.doc(id).update(newPost);
+  const newUser = req.body;
+  await usersCollection.doc(id).update(newUser);
   res.status(200).send('UPDATED');
 });
 
-// delete a post
-app.delete('/post/:id', async (req, res) => {
+// Delete a user
+app.delete('/user/:id', async (req, res) => {
   const id = req.params['id'];
-  await postsCollection.doc(id).delete();
+  await usersCollection.doc(id).delete();
   res.status(200).send('DELETED');
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+// Create a product
+app.put('/product', async (req, resp) => {
+  const product = req.body;
+  const addedDoc = await productsCollection.add(product);
+  resp.status(200).send(addedDoc.id);
+});
+
+// Read all products
+app.get('/product', async (_, resp) => {
+  const allProductsDoc = await productsCollection.get();
+  resp.status(200).json(allProductsDoc.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+});
+
+// Update a product
+app.post('/product/:id', async (req, res) => {
+  const id = req.params['id'];
+  const newProduct = req.body;
+  await productsCollection.doc(id).update(newProduct);
+  res.status(200).send('UPDATED');
+});
+
+// Delete a product
+app.delete('/product/:id', async (req, res) => {
+  const id = req.params['id'];
+  await productsCollection.doc(id).delete();
+  res.status(200).send('DELETED');
+});
+
+// login 
+app.get('/login', async (req, resp) => {
+  const card = req.body;
+  const allUsersDoc = await usersCollection.get();
+  const users = [allUsersDoc.docs.map(doc => ({ id: doc.id, ...doc.data() }))];
+
+  if (users.some(c => ((c.email === card.email) && (c.name === card.name) && (c.password === card.password)))) {
+    resp.status(200).json(c);
+  } else {
+    resp.status(200).json(null);
+  }
+})
+
+
+app.listen(port, () => console.log(`Web app listening on port ${port}!`));
