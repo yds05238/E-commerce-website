@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Post from './Post';
-import PostAdder from './PostAdder';
+import Post from './Product';
+import PostAdder from './ProductAdder';
 
 export default class App extends Component {
   state = { posts: null, postsToday: null, postsSorted: null };

@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://dti-web-dev-sp19-db-demo.firebaseio.com'
+  databaseURL: 'https://ecommerceweb-7acd7.firebaseio.com'
 });
 
 const db = admin.firestore();
