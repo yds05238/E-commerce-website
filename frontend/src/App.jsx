@@ -1,23 +1,17 @@
 import React from 'react';
 import Register from './Register';
+import Signin from './Signin';
+import Sale from './Sale';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-/*
 const AppRouter = () => (
   <Router>
     <div>
-      <Route path="/" exact component={Login} />
-      <Route path="/signup/" component={Signup} />
-      <Route path="/products/" component={ProductPosts} />
-      <Route path="/contact/" component={ContactCardList} />
+      <Route path="/" exact component={Signin} />
+      <Route path="/register/" component={Register} />
+      <Route path="/sale/" component={Sale} />
     </div>
   </Router>
 );
 
 export default AppRouter;
-*/
-export default () => (
-  <div>
-    <Register />
-
-  </div>
-);

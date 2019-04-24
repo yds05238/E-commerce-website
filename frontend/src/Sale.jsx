@@ -58,7 +58,7 @@ export default class Sale extends Component {
               {products.length === 0 && <div>No produccts available.</div>}
               {products.length > 0 &&
                 products.map(({ id, name, price }) => (
-                  <User
+                  <Product
                     key={id}
                     id={id}
                     name={name}

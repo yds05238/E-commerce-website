@@ -82,18 +82,19 @@ app.delete('/product/:id', async (req, res) => {
   res.status(200).send('DELETED');
 });
 
-// login 
+
+
+// login (set user to not be null) 
 app.get('/login', async (req, resp) => {
-  const card = req.body;
+  const user = req.body;
   const allUsersDoc = await usersCollection.get();
   const users = [allUsersDoc.docs.map(doc => ({ id: doc.id, ...doc.data() }))];
-
-  if (users.some(c => ((c.email === card.email) && (c.name === card.name) && (c.password === card.password)))) {
-    resp.status(200).json(c);
+  if (users.some(c => c.email === user.email) && (c.password === user.password)) {
+    resp.status(200).json(user);
   } else {
     resp.status(200).json(null);
   }
-})
+});
 
 
 app.listen(port, () => console.log(`Web app listening on port ${port}!`));

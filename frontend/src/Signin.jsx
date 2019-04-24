@@ -31,6 +31,13 @@ export default class Signin extends Component {
       <div>
         <h1>E Commerce APP</h1>
 
+        {
+          (user != null) ?
+            <SigninForm
+              onSignIn={this.signIn} />
+            :
+          <
+        }
 
         <SigninForm
           onSignIn={this.signIn} />
