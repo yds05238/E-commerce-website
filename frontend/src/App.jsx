@@ -1,6 +1,6 @@
 import React from 'react';
 import Register from './Register';
-import Signin from './Signin';
+
 /*
 const AppRouter = () => (
   <Router>

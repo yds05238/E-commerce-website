@@ -59,7 +59,7 @@ export default class Register extends Component {
               {users.length > 0 &&
                 users.map(({ id, email, password }) => (
                   <User
-                    key={email}
+                    key={id}
                     id={id}
                     email={email}
                     password={password}
