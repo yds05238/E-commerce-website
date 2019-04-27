@@ -1,17 +1,12 @@
 import React from 'react';
-import Register from './Register';
-import Signin from './Signin';
-import Sale from './Sale';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import './App.css';
+import PostList from './PostList';
+import PostList2 from './PostList2';
+import ContactCardList from './ContactCardList';
 
-const AppRouter = () => (
-  <Router>
-    <div>
-      <Route path="/" exact component={Signin} />
-      <Route path="/register/" component={Register} />
-      <Route path="/sale/" component={Sale} />
-    </div>
-  </Router>
+export default () => (
+  <div>
+    <ContactCardList />
+    <PostList />
+  </div>
 );
-
-export default AppRouter;
