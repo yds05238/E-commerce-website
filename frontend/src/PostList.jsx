@@ -55,8 +55,7 @@ export default class PostList extends Component {
   };
 
   render() {
-    const { posts, postsToday, postsSorted } = this.state;
-    console.log({ postsSorted });
+    const { posts } = this.state;
     return (
       <div>
         {posts != null ? (
