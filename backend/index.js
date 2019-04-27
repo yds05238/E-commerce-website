@@ -17,7 +17,6 @@ app.use(bodyParser.json());
 app.get('/', (_, resp) => resp.send('Hello World!'));
 
 const productsCollection = db.collection('products');
-//const postsCollection2 = db.collection('posts2');
 const usersCollection = db.collection('users');
 
 // create a user
@@ -38,20 +37,6 @@ app.get('/user', async (_, resp) => {
   const allUsersDoc = await usersCollection.get();
   resp.status(200).json(allUsersDoc.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 });
-/*
-// 2019-04-17
-app.get('/contactcard/today', async (_, resp) => {
-  const today = new Date();
-  const todayString = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-  const todayPostsDoc = await contactsCollection.where('date', '==', todayString).get();
-  resp.status(200).json(todayPostsDoc.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-});
-
-// sorted cards
-app.get('/contactcard/sorted', async (_, resp) => {
-  const sortedPosts = await contactsCollection.orderBy('date', 'desc').get();
-  resp.status(200).json(sortedPosts.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-});*/
 
 // update a user
 app.post('/user/:id', async (req, res) => {
@@ -67,6 +52,9 @@ app.delete('/user/:id', async (req, res) => {
   await usersCollection.doc(id).delete();
   res.status(200).send('DELETED');
 });
+
+
+
 
 
 // create a product

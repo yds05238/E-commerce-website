@@ -11,33 +11,33 @@ export default class Users extends Component {
       .then(users => this.setState({ users }));
   }
 
-  addUser = async ({ name, email }) => {
+  addUser = async ({ email, password }) => {
     const resp = await fetch(`/user`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email })
+      body: JSON.stringify({ email, password })
     });
     const text = await resp.text();
-    const user = { text, name, email };
+    const user = { text, email, password };
     if (text !== 'NOT_OK') {
       await this.setState(({ users }) => ({ users: [...users, user] }));
     }
     return null;
   };
 
-  editUser = async (id, name) => {
-    const newName = prompt('Change the content of the post', name);
+  editUser = async (id, password) => {
+    const newPassword = prompt('Change the content of the post', password);
     const resp = await fetch(`/user/${id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: newName })
+      body: JSON.stringify({ password: newPassword })
     });
     const text = await resp.text();
     if (text !== 'UPDATED') {
       throw new Error(`Bad response: ${text}`);
     }
     this.setState(prevState => ({
-      users: prevState.users.map(p => (p.id === id ? { ...p, name: newName } : p))
+      users: prevState.users.map(p => (p.id === id ? { ...p, password: newPassword } : p))
     }));
   };
 
@@ -60,12 +60,12 @@ export default class Users extends Component {
             <div>
               {users.length === 0 && <div>No user available.</div>}
               {users.length > 0 &&
-                users.map(({ id, name, email }) => (
+                users.map(({ id, email, password }) => (
                   <User
                     key={email}
                     id={id}
-                    name={name}
                     email={email}
+                    password={password}
                     editUser={this.editUser}
                     deleteUser={this.deleteUser}
                   />

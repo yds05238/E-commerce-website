@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 export default class NewUser extends Component {
-  state = { name: '', email: '' };
+  state = { email: '', password: '' };
 
-  nameChange = e => this.setState({ name: e.currentTarget.value });
+  passwordChange = e => this.setState({ password: e.currentTarget.value });
 
   emailChange = e => this.setState({ email: e.currentTarget.value });
 
@@ -11,22 +11,22 @@ export default class NewUser extends Component {
     //const d = new Date();
     //const date = `${d.getFullYear()}-${1 + d.getMonth()}-${d.getDate()}`;
     const { addUser } = this.props;
-    const { name, email } = this.state;
-    addUser({ name, email });
+    const { email, password } = this.state;
+    addUser({ email, password });
   };
 
   render() {
-    const { name, email } = this.state;
+    const { email, password } = this.state;
     return (
       <div>
         <div>
           <label>
-            Name:
-            <input type="text" value={name} onChange={this.nameChange} />
-          </label>
-          <label>
             Email:
             <input type="email" value={email} onChange={this.emailChange} />
+          </label>
+          <label>
+            Password:
+            <input type="password" value={password} onChange={this.passwordChange} />
           </label>
         </div>
         <div>
