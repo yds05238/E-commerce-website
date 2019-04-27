@@ -3,12 +3,12 @@ import User from './User';
 import NewUser from './NewUser';
 
 export default class Users extends Component {
-  state = { data: null };
+  state = { users: null };
 
   componentDidMount() {
     fetch('/user')
       .then(resp => resp.json())
-      .then(data => this.setState({ data }));
+      .then(users => this.setState({ users }));
   }
 
   addUser = async ({ name, email }) => {
@@ -20,7 +20,7 @@ export default class Users extends Component {
     const text = await resp.text();
     const user = { text, name, email };
     if (text !== 'NOT_OK') {
-      await this.setState(({ data }) => ({ data: [...data, user] }));
+      await this.setState(({ users }) => ({ users: [...users, user] }));
     }
     return null;
   };
@@ -37,7 +37,7 @@ export default class Users extends Component {
       throw new Error(`Bad response: ${text}`);
     }
     this.setState(prevState => ({
-      data: prevState.data.map(p => (p.id === id ? { ...p, name: newName } : p))
+      users: prevState.users.map(p => (p.id === id ? { ...p, name: newName } : p))
     }));
   };
 
@@ -47,20 +47,20 @@ export default class Users extends Component {
     if (text !== 'DELETED') {
       throw new Error(`Bad response: ${text}`);
     }
-    this.setState(prevState => ({ data: prevState.data.filter(p => p.id !== id) }));
+    this.setState(prevState => ({ users: prevState.users.filter(p => p.id !== id) }));
   };
 
   render() {
-    const { data } = this.state;
+    const { users } = this.state;
     return (
       <div>
-        {data != null ? (
+        {users != null ? (
           <div className="Block">
             <h3>All Users</h3>
             <div>
-              {data.length === 0 && <div>No user available.</div>}
-              {data.length > 0 &&
-                data.map(({ id, name, email }) => (
+              {users.length === 0 && <div>No user available.</div>}
+              {users.length > 0 &&
+                users.map(({ id, name, email }) => (
                   <User
                     key={email}
                     id={id}
