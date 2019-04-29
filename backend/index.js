@@ -2,6 +2,7 @@ const admin = require('firebase-admin');
 const serviceAccount = require('./service-account.json');
 const express = require('express');
 const bodyParser = require('body-parser');
+const firebase = require('firebase');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -18,6 +19,39 @@ app.get('/', (_, resp) => resp.send('Hello World!'));
 
 const productsCollection = db.collection('products');
 const usersCollection = db.collection('users');
+
+
+
+
+app.post('/signup', async (req, resp) => {
+  const user = req.body;
+  const em = user.email;
+  const pw = user.password;
+  await firebase.auth().createUserWithEmailAndPassword(em, pw).catch(function (error) {
+    resp.status(200).send('NOT_OK');
+  });
+  resp.status(200).send(em);
+});
+
+
+app.post('/signin', async (req, resp) => {
+  const user = req.body;
+  const em = user.email;
+  const pw = user.password;
+  await firebase.auth().signInWithEmailAndPassword(em, pw);
+  resp.status(200).send(em);
+});
+
+app.post('/login', async (req, resp) => {
+  const user = req.body;
+  const em = user.email;
+  const pw = user.password;
+  await firebase.auth().createUserAndRetrieveDataWithEmailAndPassword
+
+  signInWithEmailAndPassword(em, pw);
+  resp.status(200).send(em);
+});
+
 
 // create a user
 app.post('/user', async (req, resp) => {
