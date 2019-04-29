@@ -14,7 +14,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import * as ROUTES from './constants/routes';
 
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, Redirect } from 'react-router-dom';
 import firebase from './firebase';
 
 

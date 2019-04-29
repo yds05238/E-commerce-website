@@ -1,8 +1,13 @@
 
 import React from 'react';
 import LogIn from './LogIn';
-const Home = () => {
+import Products from './Products';
+const Home = (props) => {
+  if (props.authenticated) {
+    return (<Products />);
+  }
   return (
+
     <LogIn />
   );
 };
