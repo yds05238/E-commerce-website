@@ -2,16 +2,16 @@
 import React from 'react';
 import LogIn from './LogIn';
 import Products from './Products';
-const Home = (props) => {
-  if (props.authenticated) {
-    return (<Products />);
-  }
+
+
+
+
+const Home = () => {
+
   return (
-
-    <LogIn />
+    <div>This is home page</div>
   );
-};
-
+}
 export default Home;
 
 

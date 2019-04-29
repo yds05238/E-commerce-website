@@ -17,17 +17,17 @@ class Navigation extends Component {
           <NavLink to="/">Home</NavLink>
           {this.props.authenticated ? (
             <nav>
-              <NavLink to={ROUTES.PRODUCTS}>Products</NavLink>
+              <NavLink to={ROUTES.DASHBOARD}>Dashboard</NavLink>
               <LogOut />
             </nav>
 
 
           ) : (
-              <h1>E-Commerce App</h1>
-              /*<nav>
+
+              <nav>
                 <NavLink to={ROUTES.LOGIN}>Log In</NavLink>
                 <NavLink to={ROUTES.REGISTER}>Register</NavLink>
-              </nav>*/
+              </nav>
             )}
 
           <Switch>
@@ -35,6 +35,7 @@ class Navigation extends Component {
             <Route authenticated={this.props.authenticated} path={ROUTES.LOGIN} component={LogIn} />
             <Route path={ROUTES.REGISTER} component={Register} />
             <ProtectedRoute authenticated={this.props.authenticated} path={ROUTES.DASHBOARD} component={Dashboard} />
+
           </Switch>
         </div>
       </Router>
