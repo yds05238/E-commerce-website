@@ -70,6 +70,8 @@ import React, { Component } from 'react';
 import Navigation from './Navigation';
 import firebase from './firebase';
 
+
+
 class App extends Component {
   state = {
     authenticated: false,
